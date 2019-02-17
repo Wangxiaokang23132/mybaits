@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!--  <typeAliases>
+        <package name="com.itcast.daomain"/>
+    </typeAliases>
+-->
+    <!--引入外界资源配置文件-->
+    <properties resource="db.properties"/>
+    <typeAliases>
+        <!--批量设置-->
+        <package name="com.itcast.daomain"/>
+    </typeAliases>
+
+    <!--环境配置-->
+    <environments default="mysql">
+        <environment id="mysql">
+            <!--管理事务:JDBC-->
+            <transactionManager type="JDBC"/>
+            <!--配置数据库连接信息-->
+            <dataSource type="POOLED">
+                <!--数据连接四个基本信息-->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--指定映射文件的位置-->
+       <!-- <mapper resource="com/itcast/dao/StudentMapper.xml"/>-->
+        <!--指定配置类-->
+   <!--     <mapper class="com.itcast.Mapper.StudentMapper"/>-->
+        <!--不管什么文件的配置类-->
+        <package name="com.itcast.Mapper"/>
+    </mappers>
+</configuration>
+<!--
+1.接口名称必须与映射配置文件名称一致
+2.接口的类路径必须与映射文件的目录结构一致
+3.映射文件中namespace属性值必须是对应接口的全限定类名
+4.接口中的方法名是映射配置文件中statement对象的id
+5.接口中方法的返回值类型是映射配置文件中statement对象的resultType类型
+6.接口中方法的参数类型是映射配置文件中statement对象的parameterType类型
+
+
+-->

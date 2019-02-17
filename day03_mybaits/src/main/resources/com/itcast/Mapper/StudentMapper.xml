@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itcast.Mapper.StudentMapper">
+    <select id="findAll" resultType="Student">
+
+        SELECT * from student
+        <if test="value!=null  and  value.length>0">
+            name=#{name}
+        </if>
+    </select>
+
+    <select id="findById" resultType="Student" parameterType="list">
+        select * from student
+        <where>
+            <foreach collection="list" item="id"  open="id  in  (" close= ")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+     </select>
+<!--判断查询  数组  参数是list  判断时用数组-->
+    <select id="findByName" parameterType="list" resultType="Student">
+        SELECT  * from student
+        <where>
+            <if test="array.length>0 and array!=null">
+                name='李四'
+            </if>
+
+        </where>
+    </select>
+</mapper>

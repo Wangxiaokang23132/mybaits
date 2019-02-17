@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!--  <typeAliases>
+        <package name="com.itcast.daomain"/>
+    </typeAliases>
+-->
+    
+    <properties resource="db.properties"/>
+  <!--  <settings>
+        <setting name="IogIml" value="STDOUT_LOGGING"/>
+    </settings>-->
+    <typeAliases>
+        <package name="com.itcast.daomain"/>
+    </typeAliases>
+
+    <!--环境配置-->
+    <environments default="mysql">
+        <environment id="mysql">
+            <!--管理事务:JDBC-->
+            <transactionManager type="JDBC"/>
+            <!--配置数据库连接信息-->
+            <dataSource type="POOLED">
+                <!--数据连接四个基本信息-->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--指定映射文件的位置-->
+        <!--<mapper resource="com/itcast/dao/StudentMapper.xml"/>-->
+        <package name="com.itcast.Mapper"/>
+    </mappers>
+</configuration>

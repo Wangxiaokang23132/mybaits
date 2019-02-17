@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+        namespace中
+Mapper模式中Mapper必须是全限定类名
+传统Dao 中可以随意赋值-->
+        <mapper namespace="com.itcast.Mapper.UserMapper">
+            <!--配置结果集 手动设置实体类对象的属性跟查询结果段一一对应-->
+            <!--
+            id: 唯一标识
+            type:结果输出集类型
+            -->
+            <resultMap id="UserMap" type="user">
+                <!--
+                id标签:配置主键
+                result标签:普通列的配置(非主键列)
+                 property:指定实体类对象的属性
+                column:指定查询列的名称
+                -->
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+                <!--一对多
+                property:封装的集合属性
+                ofType:封装的集合的泛型-->
+                <collection property="orders" ofType="orders">
+                    <result property="number" column="number"/>
+
+                    <collection property="itemsList" ofType="items"   >
+                        <result property="name" column="name"/>
+                        <result property="price" column="price"/>
+                    </collection>
+                </collection>
+
+            </resultMap>
+    <!--查询所有-->
+    <select id="findAll" resultMap="UserMap">
+        SELECT * FROM USER u LEFT JOIN   orders o  ON  o.user_id=u.id;
+    </select>
+
+    <select id="findAllAndItemsAndUser" resultMap="UserMap">
+        SELECT u.*,o.number,i.* FROM USER u
+        LEFT JOIN orders  o ON u.id=o.user_id
+        LEFT JOIN  orderdetail d ON o.id=d.orders_id
+        LEFT JOIN items i ON i.id=d.items_id;
+    </select>
+
+</mapper>
